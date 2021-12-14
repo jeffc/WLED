@@ -19,6 +19,8 @@ void handleDMX()
   uint8_t brightness = strip.getBrightness();
 
   uint16_t len = strip.getLengthTotal();
+  len = (len > 255) ? 255 : len;
+
   for (int i = DMXStartLED; i < len; i++) {        // uses the amount of LEDs as fixture count
 
     uint32_t in = strip.getPixelColor(i);     // get the colors for the individual fixtures as suggested by Aircoookie in issue #462

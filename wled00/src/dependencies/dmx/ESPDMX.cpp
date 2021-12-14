@@ -42,7 +42,7 @@ void DMXESPSerial::init() {
   chanSize = defaultMax;
 
   DMXSerial.begin(DMXSPEED, SERIAL_8N1, RXPIN, TXPIN);
-  pinMode(sendPin, OUTPUT);
+  //pinMode(sendPin, OUTPUT);
   dmxStarted = true;
 }
 
@@ -56,7 +56,7 @@ void DMXESPSerial::init(int chanQuant) {
   chanSize = chanQuant;
 
   DMXSerial.begin(DMXSPEED, SERIAL_8N1, RXPIN, TXPIN);
-  pinMode(sendPin, OUTPUT);
+  //pinMode(sendPin, OUTPUT);
   dmxStarted = true;
 }
 
@@ -91,12 +91,13 @@ void DMXESPSerial::update() {
   if (dmxStarted == false) init();
 
   //Send break
-  digitalWrite(sendPin, HIGH);
+  //digitalWrite(sendPin, HIGH);
   DMXSerial.begin(BREAKSPEED, BREAKFORMAT, RXPIN, TXPIN);
   DMXSerial.write(0);
   DMXSerial.flush();
-  delay(10);
+  delay(15);
   DMXSerial.end();
+  delay(15);
 
   //pinMatrixOutDetach(TXPIN, false, false);
   //pinMode(TXPIN, OUTPUT);
@@ -108,11 +109,12 @@ void DMXESPSerial::update() {
 
   //send data
   DMXSerial.begin(DMXSPEED, DMXFORMAT, RXPIN, TXPIN);
-  digitalWrite(sendPin, LOW);
+  //digitalWrite(sendPin, LOW);
   DMXSerial.write(dmxData, chanSize);
   DMXSerial.flush();
-  delay(10);
+  delay(15);
   DMXSerial.end();
+  delay(15);
 }
 
 // Function to update the DMX bus
